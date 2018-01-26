@@ -1,6 +1,6 @@
 # An implementation of Conway's Game of Life
 
-Initial code based off of CONCANNON's implementation at:\n
+Initial code based off of CONCANNON's implementation at:
 	http://disruptive-communications.com/conwaylifejavascript/
 
 I am working on producing new features for this and will 
