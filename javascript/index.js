@@ -1,4 +1,5 @@
 /*jshint esversion:6*/
+
 const dishHeight = 400;
 const dishWidth = 400;
 let dish = createDish(dishWidth);
@@ -6,6 +7,7 @@ let copyDish = createDish(dishWidth);
 let isRunning = true;
 
 fillDish();
+tick();
 
 document.getElementById("reset")
   .addEventListener("click", function() {
@@ -19,15 +21,16 @@ document.getElementById("reset")
   updateDish();
 });
 
-tick(); //call main loop
-
-document.getElementById("startStop")
+document.getElementById("startPause")
   .addEventListener("click", function() {
     if (isRunning) {
       isRunning = false;
       this.innerHTML = "Start";
+      document.getElementById("tickOnce").style.display = "inline-block";
     } else {
       isRunning = true;
+      this.innerHTML = "Pause";
+      document.getElementById("tickOnce").style.display = "none";
       tick();
     }
     return isRunning;
@@ -38,6 +41,8 @@ document.getElementById("tickOnce")
     if (!isRunning) {
       drawDish();
       updateDish();
+    } else {
+      this.style.display = "none";
     }
 });
 
