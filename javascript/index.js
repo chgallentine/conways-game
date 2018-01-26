@@ -10,7 +10,7 @@ document.getElementById("reset")
   let densityInput, densityValue;
   densityInput = document.getElementById("densityInput");
   if (densityInput) {
-    densityValue = densityInput.value/100;
+    densityValue = densityInput.value;
   } else {
     densityValue = 0.3;
   }
@@ -35,11 +35,11 @@ function createDish(rows) { //creates a 2 dimensional array of required height
   return arr;
 }
 
-function fillDish(density=0.3) { //fill the grid randomly
+function fillDish(density=30) { //fill the grid randomly
   let i, j;
   for (i = 0; i < dishHeight; i++) { //iterate through rows
     for (j = 0; j < dishWidth; j++) { //iterate through columns
-      if (Math.random() < density) {
+      if (Math.random()*100 < density) {
         dish[i][j] = 1;
       } else {
         dish[i][j] = 0;
