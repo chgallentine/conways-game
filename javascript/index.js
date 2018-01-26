@@ -1,6 +1,6 @@
 /*jshint esversion:6*/
 
-const dishHeight = 600;
+const dishHeight = 400;
 const dishWidth = 600;
 let dish = createDish(dishWidth);
 let copyDish = createDish(dishWidth);
