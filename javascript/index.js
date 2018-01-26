@@ -35,11 +35,11 @@ function createDish(rows) { //creates a 2 dimensional array of required height
   return arr;
 }
 
-function fillDish() { //fill the grid randomly
+function fillDish(density=0.3) { //fill the grid randomly
   let i, j;
   for (i = 0; i < dishHeight; i++) { //iterate through rows
     for (j = 0; j < dishWidth; j++) { //iterate through columns
-      if (Math.random() < 0.3) {
+      if (Math.random() < density) {
         dish[i][j] = 1;
       } else {
         dish[i][j] = 0;
