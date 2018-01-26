@@ -80,7 +80,7 @@ function drawDish() {
   let i, j;
   let c = document.getElementById("myCanvas");
   let ctx = c.getContext("2d");
-  ctx.clearRect(0, 0, 400, 400);
+  ctx.clearRect(0, 0, dishWidth, dishHeight);
   for ( i = 1; i < dishHeight; i++) {
     for ( j = 1; j < dishWidth; j++) {
       if (dish[i][j] === 1) {
