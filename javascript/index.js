@@ -5,6 +5,11 @@ let copyDish = createDish(dishWidth);
 
 fillDish(); //create the starting state for the grid by filling it with random cells
 
+document.getElementById("reset")
+  .addEventListener("click", function() {
+  fillDish();
+});
+
 tick(); //call main loop
 
 //functions 
