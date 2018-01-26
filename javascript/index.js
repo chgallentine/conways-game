@@ -7,7 +7,14 @@ fillDish(); //create the starting state for the grid by filling it with random c
 
 document.getElementById("reset")
   .addEventListener("click", function() {
-  fillDish();
+  let densityInput, densityValue;
+  densityInput = document.getElementById("densityInput");
+  if (densityInput) {
+    densityValue = densityInput.value/100;
+  } else {
+    densityValue = 0.3;
+  }
+  fillDish(densityValue);
 });
 
 tick(); //call main loop
