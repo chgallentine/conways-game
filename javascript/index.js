@@ -1,10 +1,11 @@
+/*jshint esversion:6*/
 const dishHeight = 400;
 const dishWidth = 400;
 let dish = createDish(dishWidth);
 let copyDish = createDish(dishWidth);
 let isRunning = true;
 
-fillDish(); //create the starting state for the grid by filling it with random cells
+fillDish();
 
 document.getElementById("reset")
   .addEventListener("click", function() {
@@ -32,7 +33,15 @@ document.getElementById("startStop")
     return isRunning;
 });
 
-function tick() { //main loop
+document.getElementById("tickOnce")
+  .addEventListener("click", function() {
+    if (!isRunning) {
+      drawDish();
+      updateDish();
+    }
+});
+
+function tick() {
   drawDish();
   updateDish();
   if (isRunning) {
@@ -40,7 +49,7 @@ function tick() { //main loop
   }
 }
 
-function createDish(rows) { //creates a 2 dimensional array of required height
+function createDish(rows) {
   let arr = [];
   let i;
   for (i = 0; i < rows; i++) {
@@ -49,10 +58,10 @@ function createDish(rows) { //creates a 2 dimensional array of required height
   return arr;
 }
 
-function fillDish(density=30) { //fill the grid randomly
+function fillDish(density=30) {
   let i, j;
-  for (i = 0; i < dishHeight; i++) { //iterate through rows
-    for (j = 0; j < dishWidth; j++) { //iterate through columns
+  for (i = 0; i < dishHeight; i++) {
+    for (j = 0; j < dishWidth; j++) {
       if (Math.random()*100 < density) {
         dish[i][j] = 1;
       } else {
