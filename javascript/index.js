@@ -49,7 +49,7 @@ function drawDish() { //draw the contents of the grid onto a canvas
   for ( i = 1; i < dishHeight; i++) { //iterate through rows
     for ( j = 1; j < dishWidth; j++) { //iterate through columns
       if (dish[i][j] === 1) {
-        ctx.fillStyle = "#000000";
+        ctx.fillStyle = "green";
         ctx.fillRect(i, j, 1, 1);
       }
     }
