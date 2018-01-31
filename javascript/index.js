@@ -75,16 +75,19 @@ document.getElementById("startPause")
   .addEventListener("click", function() {
     let i;
     const paused = document.getElementsByClassName("paused");
+    const going = document.getElementsByClassName("going")[0];
     if (dish.isRunning) {
       dish.isRunning = false;
-      this.innerHTML = "Start";
+      this.innerHTML = '<i class="fas fa-play"></i>';
+      going.style.display = "none";
       for (i = 0; i < paused.length; i++) {
-          paused[i].style.display = "inline-block";
+          paused[i].style.display = "block";
       }
     } else {
       dish.isRunning = true;
-      this.innerHTML = "Pause";
-    for (i = 0; i < paused.length; i++) {
+      this.innerHTML = '<i class="fas fa-pause"></i>';
+      going.style.display = "block";
+     for (i = 0; i < paused.length; i++) {
           paused[i].style.display = "none";
       }
     playRound(dish);
@@ -97,8 +100,11 @@ document.getElementById("setColor")
     dish.color = ""+document.getElementById("colorInput").value;
 });
 
-
-// Function to set dimensions
+document.getElementById("tickOnce")
+  .addEventListener("click", function() {
+    drawDish(dish);
+    updateDish(dish);
+  });
 
 
 // Function to copy board

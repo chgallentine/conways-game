@@ -9,6 +9,8 @@
 
   <link rel="stylesheet" type="text/css" href="./stylesheets/index.css">
   
+  <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+
 </head>
 <body>
   <div id="console">
@@ -17,15 +19,20 @@
       <div>
         <input 
            type="text" 
+           default="30"
            placeholder="Probability 0-100"
            id="probabilityInput" \>
-        <button id="reset">Reset Game</button>
+        <button id="reset">
+          <i class="fas fa-sync-alt"></i>
+        </button>
       </div>
       <div>
-        <button id="startPause">Pause</button>
+        <button id="startPause">
+          <i class="fas fa-pause"></i>
+        </button>
         <button class="paused" id="tickOnce">Tick Once</button>
       </div>
-      <div>
+      <div class="going">
         <input 
            type="text" 
            placeholder="Color [#hex|name]"
@@ -36,15 +43,17 @@
         <input 
            type="text" 
            placeholder="Height [px]"
-           id="heightInput" \>
-        <button id="setHeight">Set Height</button>
+           id="heightInput" 
+           class="sizeInput" \>
+        <button id="setHeight" class="fieldDependent">Set Height</button>
       </div>
       <div class="paused">
         <input 
            type="text" 
            placeholder="Width [px]"
-           id="widthInput" \>
-        <button id="setWidth">Set Width</button>
+           id="widthInput" 
+           class="sizeInput" \>
+        <button id="setWidth" class="fieldDependent">Set Width</button>
       </div>
     </div>
   </div>
