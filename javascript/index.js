@@ -8,7 +8,7 @@ const dish = {
   generations: 0,
   mainArr: [],
   copyArr: [],
-  color: "red",
+  color: "green",
 };
 
 dish.mainArr = createDish(dish);
@@ -91,6 +91,13 @@ document.getElementById("startPause")
     }
 });
 
+// Function setColor
+document.getElementById("setColor")
+  .addEventListener("click", function() {
+    dish.color = ""+document.getElementById("colorInput").value;
+});
+
+
 // Function to set dimensions
 
 
@@ -137,10 +144,6 @@ function updateDish(dish) {
         }
     }
 } 
-
-
-// Function to set probability
-//    Takes number between 0 and 100
 
 // Function to draw the dish
 function drawDish(dish) {
