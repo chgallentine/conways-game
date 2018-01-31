@@ -1,134 +1,160 @@
 /*jshint esversion:6*/
 
-const dishHeight = 400;
-const dishWidth = 600;
-let dish = createDish(dishWidth);
-let copyDish = createDish(dishWidth);
-let isRunning = true;
+const dish = {
+  height: 400,
+  width: 400, 
+  isRunning: true,
+  probability: 30,
+  generations: 0,
+  mainArr: [],
+  copyArr: [],
+  color: "red",
+};
 
-fillDish();
-tick();
+dish.mainArr = createDish(dish);
+dish.copyArr = createDish(dish);
 
-document.getElementById("reset")
-  .addEventListener("click", function() {
-  let densityInput, densityValue;
-  densityInput = document.getElementById("densityInput");
-  if (densityInput.value) {
-    densityValue = densityInput.value;
-  }
-  fillDish(densityValue);
-  drawDish();
-  updateDish();
-});
+fillDish(dish);
 
-document.getElementById("startPause")
-  .addEventListener("click", function() {
-    if (isRunning) {
-      isRunning = false;
-      this.innerHTML = "Start";
-      document.getElementById("tickOnce").style.display = "inline-block";
-    } else {
-      isRunning = true;
-      this.innerHTML = "Pause";
-      document.getElementById("tickOnce").style.display = "none";
-      tick();
-    }
-    return isRunning;
-});
+playRound(dish);
 
-document.getElementById("tickOnce")
-  .addEventListener("click", function() {
-    if (!isRunning) {
-      drawDish();
-      updateDish();
-    } else {
-      this.style.display = "none";
-    }
-});
-
-function tick() {
-  drawDish();
-  updateDish();
-  if (isRunning) {
-    requestAnimationFrame(tick);
-  }
-}
-
-function createDish(rows) {
+// Function to create gameboard
+function createDish(dish) {
   let arr = [];
   let i;
-  for (i = 0; i < rows; i++) {
+  for (i = 0; i < dish.width; i++) {
     arr[i] = [];
   }
   return arr;
 }
 
-function fillDish(density=30) {
+// Function to fill initial dish
+function fillDish(board) {
   let i, j;
-  for (i = 0; i < dishHeight; i++) {
-    for (j = 0; j < dishWidth; j++) {
-      if (Math.random()*100 < density) {
-        dish[i][j] = 1;
+  for (i = 0; i < dish.height; i++) {
+    for (j = 0; j < dish.width; j++) {
+      if (Math.random()*100 < dish.probability) {
+        dish.mainArr[i][j] = 1;
       } else {
-        dish[i][j] = 0;
+        dish.mainArr[i][j] = 0;
       }
     }
   }
 }
 
-function drawDish() {
+// Parent function, holds game play "tick"
+//    create & fill dish if generations = 0
+//    increment generations on tick
+function playRound() {
+  drawDish(dish);
+  updateDish(dish);
+  if (dish.isRunning) {
+    requestAnimationFrame(playRound);
+  }
+}
+
+// Function to reset the game
+//    Set generations to zero
+document.getElementById("reset")
+  .addEventListener("click", function() {
+  let densityInput, densityValue = 30;
+  densityInput = document.getElementById("probabilityInput");
+  if (densityInput.value) {
+    densityValue = densityInput.value;
+  }
+
+  dish.probability = densityValue;
+
+  fillDish(dish);
+  drawDish(dish);
+  updateDish(dish);
+});
+// Function to start/Pause the game
+//    Does not redraw or tick board if isRunning is false
+document.getElementById("startPause")
+  .addEventListener("click", function() {
+    let i;
+    const paused = document.getElementsByClassName("paused");
+    if (dish.isRunning) {
+      dish.isRunning = false;
+      this.innerHTML = "Start";
+      for (i = 0; i < paused.length; i++) {
+          paused[i].style.display = "inline-block";
+      }
+    } else {
+      dish.isRunning = true;
+      this.innerHTML = "Pause";
+    for (i = 0; i < paused.length; i++) {
+          paused[i].style.display = "none";
+      }
+    playRound(dish);
+    }
+});
+
+// Function to set dimensions
+
+
+// Function to copy board
+//    Generates copy of board
+//    overwrites copy
+function updateDish(dish) {
+    let i, j;
+  for (i = 1; i < dish.height - 1; i++) {
+      for (j = 1; j < dish.width - 1; j++) {
+          var totalCells = 0;
+          totalCells += dish.mainArr[i - 1][j - 1]; //top left
+          totalCells += dish.mainArr[i - 1][j]; //top center
+          totalCells += dish.mainArr[i - 1][j + 1]; //top right
+
+          totalCells += dish.mainArr[i][j - 1]; //middle left
+          totalCells += dish.mainArr[i][j + 1]; //middle right
+
+          totalCells += dish.mainArr[i + 1][j - 1]; //bottom left
+          totalCells += dish.mainArr[i + 1][j]; //bottom center
+          totalCells += dish.mainArr[i + 1][j + 1]; //bottom right
+
+          if (dish.mainArr[i][j] === 0) {
+              if (totalCells === 3) {
+                dish.copyArr[i][j] = 1;
+              } else {
+                dish.copyArr[i][j] = 0;
+              }
+          } else if (dish.mainArr[i][j] === 1) { 
+              if (totalCells < 2) {
+                dish.copyArr[i][j] = 0;
+              } else if (totalCells < 4) {
+                dish.copyArr[i][j] = 1;
+              } else {
+                dish.copyArr[i][j] = 0;
+              }
+          }
+      }
+  }
+
+    for (i = 0; i < dish.height; i++) {
+        for (j = 0; j < dish.width; j++) {
+            dish.mainArr[i][j] = dish.copyArr[i][j];
+        }
+    }
+} 
+
+
+// Function to set probability
+//    Takes number between 0 and 100
+
+// Function to draw the dish
+function drawDish(dish) {
   let i, j;
   let c = document.getElementById("myCanvas");
   let ctx = c.getContext("2d");
-  ctx.clearRect(0, 0, dishHeight, dishWidth);
-  for ( i = 1; i < dishHeight; i++) {
-    for ( j = 1; j < dishWidth; j++) {
-      if (dish[i][j] === 1) {
-        ctx.fillStyle = "green";
+  ctx.clearRect(0, 0, dish.height, dish.width);
+  for ( i = 1; i < dish.height; i++) {
+    for ( j = 1; j < dish.width; j++) {
+      if (dish.mainArr[i][j] === 1) {
+        ctx.fillStyle = `${dish.color}`;
         ctx.fillRect(i, j, 1, 1);
       }
     }
   }
 }
 
-function updateDish() {
-  let i, j;
-    for (i = 1; i < dishHeight - 1; i++) {
-        for (j = 1; j < dishWidth - 1; j++) {
-            var totalCells = 0;
-            totalCells += dish[i - 1][j - 1]; //top left
-            totalCells += dish[i - 1][j]; //top center
-            totalCells += dish[i - 1][j + 1]; //top right
-
-            totalCells += dish[i][j - 1]; //middle left
-            totalCells += dish[i][j + 1]; //middle right
-
-            totalCells += dish[i + 1][j - 1]; //bottom left
-            totalCells += dish[i + 1][j]; //bottom center
-            totalCells += dish[i + 1][j + 1]; //bottom right
-
-            if (dish[i][j] === 0) {
-                if (totalCells === 3) {
-                  copyDish[i][j] = 1;
-                } else {
-                  copyDish[i][j] = 0;
-                }
-            } else if (dish[i][j] === 1) { 
-                if (totalCells < 2) {
-                  copyDish[i][j] = 0;
-                } else if (totalCells < 4) {
-                  copyDish[i][j] = 1;
-                } else {
-                  copyDish[i][j] = 0;
-                }
-            }
-        }
-    }
-
-    for (i = 0; i < dishHeight; i++) {
-        for (j = 0; j < dishWidth; j++) {
-            dish[i][j] = copyDish[i][j];
-
-        }
-    }
-}	
