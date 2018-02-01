@@ -98,6 +98,7 @@ document.getElementById("startPause")
 document.getElementById("setColor")
   .addEventListener("click", function() {
     dish.color = ""+document.getElementById("colorInput").value;
+    drawDish(dish);
 });
 
 document.getElementById("tickOnce")
