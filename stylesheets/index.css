@@ -12,10 +12,6 @@ button {
   height: 100%;
 }
 
-inputs {
-  height: 3em;
-}
-
 .paused {
   visibility: hidden;
 }
