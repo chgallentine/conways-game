@@ -5,6 +5,10 @@ body {
   align-items: center;
 }
 
+.paused {
+  visibility: hidden;
+}
+
 #console {
   border: 2px solid black;
   display: flex;
@@ -20,5 +24,5 @@ body {
 }
 
 #tickOnce {
-	display: none;
+	visibility: hidden;
 }

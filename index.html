@@ -16,7 +16,7 @@
   <div id="console">
     <canvas id="myCanvas" height="400" width="400"></canvas>
     <div id="controls">
-      <div>
+      <div class="paused">
         <input 
            type="text" 
            default="30"
@@ -30,7 +30,7 @@
         <button id="startPause">
           <i class="fas fa-pause"></i>
         </button>
-        <button class="paused" id="tickOnce">Tick Once</button>
+        <button id="tickOnce">Tick Once</button>
       </div>
       <div>
         <input 
@@ -38,22 +38,6 @@
            placeholder="Color [#hex|name]"
            id="colorInput" \>
         <button id="setColor">Set Color</button>
-      </div>
-      <div class="paused" >
-        <input 
-           type="text" 
-           placeholder="Height [px]"
-           id="heightInput" 
-           class="sizeInput" \>
-        <button id="setHeight" class="fieldDependent">Set Height</button>
-      </div>
-      <div class="paused">
-        <input 
-           type="text" 
-           placeholder="Width [px]"
-           id="widthInput" 
-           class="sizeInput" \>
-        <button id="setWidth" class="fieldDependent">Set Width</button>
       </div>
     </div>
   </div>

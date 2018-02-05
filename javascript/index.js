@@ -1,8 +1,8 @@
 /*jshint esversion:6*/
 
 const dish = {
-  height: 400,
-  width: 400, 
+  width: 400,
+  height: 400, 
   isRunning: true,
   probability: 30,
   generations: 0,
@@ -22,7 +22,7 @@ playRound(dish);
 function createDish(dish) {
   let arr = [];
   let i;
-  for (i = 0; i < dish.width; i++) {
+  for (i = 0; i < dish.height; i++) {
     arr[i] = [];
   }
   return arr;
@@ -31,8 +31,8 @@ function createDish(dish) {
 // Function to fill initial dish
 function fillDish(board) {
   let i, j;
-  for (i = 0; i < dish.height; i++) {
-    for (j = 0; j < dish.width; j++) {
+  for (i = 0; i < dish.width; i++) {
+    for (j = 0; j < dish.height; j++) {
       if (Math.random()*100 < dish.probability) {
         dish.mainArr[i][j] = 1;
       } else {
@@ -69,6 +69,8 @@ document.getElementById("reset")
   drawDish(dish);
   updateDish(dish);
 });
+
+
 // Function to start/Pause the game
 //    Does not redraw or tick board if isRunning is false
 document.getElementById("startPause")
@@ -79,13 +81,13 @@ document.getElementById("startPause")
       dish.isRunning = false;
       this.innerHTML = '<i class="fas fa-play"></i>';
       for (i = 0; i < paused.length; i++) {
-          paused[i].style.display = "block";
+          paused[i].style.visibility = "visible";
       }
     } else {
       dish.isRunning = true;
       this.innerHTML = '<i class="fas fa-pause"></i>';
      for (i = 0; i < paused.length; i++) {
-          paused[i].style.display = "none";
+          paused[i].style.visibility = "hidden";
       }
     playRound(dish);
     }
@@ -110,8 +112,8 @@ document.getElementById("tickOnce")
 //    overwrites copy
 function updateDish(dish) {
     let i, j;
-  for (i = 1; i < dish.height - 1; i++) {
-      for (j = 1; j < dish.width - 1; j++) {
+  for (i = 1; i < dish.width - 1; i++) {
+      for (j = 1; j < dish.height - 1; j++) {
           var totalCells = 0;
           totalCells += dish.mainArr[i - 1][j - 1]; //top left
           totalCells += dish.mainArr[i - 1][j]; //top center
@@ -142,8 +144,8 @@ function updateDish(dish) {
       }
   }
 
-    for (i = 0; i < dish.height; i++) {
-        for (j = 0; j < dish.width; j++) {
+    for (i = 0; i < dish.width; i++) {
+        for (j = 0; j < dish.height; j++) {
             dish.mainArr[i][j] = dish.copyArr[i][j];
         }
     }
@@ -154,9 +156,9 @@ function drawDish(dish) {
   let i, j;
   let c = document.getElementById("myCanvas");
   let ctx = c.getContext("2d");
-  ctx.clearRect(0, 0, dish.height, dish.width);
-  for ( i = 1; i < dish.height; i++) {
-    for ( j = 1; j < dish.width; j++) {
+  ctx.clearRect(0, 0, dish.width, dish.height);
+  for ( i = 1; i < dish.width; i++) {
+    for ( j = 1; j < dish.height; j++) {
       if (dish.mainArr[i][j] === 1) {
         ctx.fillStyle = `${dish.color}`;
         ctx.fillRect(i, j, 1, 1);
