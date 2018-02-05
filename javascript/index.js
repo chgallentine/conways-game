@@ -79,13 +79,13 @@ document.getElementById("startPause")
     const paused = document.getElementsByClassName("paused");
     if (dish.isRunning) {
       dish.isRunning = false;
-      this.innerHTML = '<i class="fas fa-play control-button"></i>';
+      this.innerHTML = '<i class="fas fa-play control-icon"></i>';
       for (i = 0; i < paused.length; i++) {
           paused[i].style.visibility = "visible";
       }
     } else {
       dish.isRunning = true;
-      this.innerHTML = '<i class="fas fa-pause"></i>';
+      this.innerHTML = '<i class="fas fa-pause control-icon"></i>';
      for (i = 0; i < paused.length; i++) {
           paused[i].style.visibility = "hidden";
       }
