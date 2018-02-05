@@ -6,6 +6,11 @@ body {
   align-items: center;
 }
 
+button {
+  background-color: #444;
+  height: 100%;
+}
+
 .paused {
   visibility: hidden;
 }
