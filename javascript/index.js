@@ -79,7 +79,7 @@ document.getElementById("startPause")
     const paused = document.getElementsByClassName("paused");
     if (dish.isRunning) {
       dish.isRunning = false;
-      this.innerHTML = '<i class="fas fa-play"></i>';
+      this.innerHTML = '<i class="fas fa-play control-button"></i>';
       for (i = 0; i < paused.length; i++) {
           paused[i].style.visibility = "visible";
       }
