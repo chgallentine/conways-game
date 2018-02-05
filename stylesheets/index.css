@@ -16,6 +16,10 @@ button {
   visibility: hidden;
 }
 
+.fas {
+  font-size: 3em;
+}
+
 #console {
   background-color: #aaa;
   border: 2px solid orange;
