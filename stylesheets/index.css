@@ -19,6 +19,18 @@ input {
   margin: 0 20px;
 }
 
+input[type="text"], textarea {
+  background-color : #444; 
+}
+
+input, select, textarea{
+    color: white;
+}
+
+textarea:focus, input:focus {
+    color: white;
+}
+
 .paused {
   visibility: hidden;
 }
